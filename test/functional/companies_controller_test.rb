@@ -18,7 +18,7 @@ class CompaniesControllerTest < ActionController::TestCase
   end
   
   def test_should_show_jobs_at
-    get :jobs_at, :company => ERB::Util.url_encode(jobs(:one).company)
+    get :jobs_at, :company => jobs(:one).urlized_company_name
     assert_not_nil assigns(:jobs)
   end
   

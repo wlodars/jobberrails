@@ -1102,7 +1102,9 @@ table.pages-container td {
 #messagesContainer {
     left:50%;
     margin-left:-150px;
-    position:absolute;
+    display:block;
+    height:90px;
+    position:fixed;
     top:0pt;
     width:300px;
 }

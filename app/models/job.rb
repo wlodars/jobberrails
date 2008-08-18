@@ -63,7 +63,7 @@ class Job < ActiveRecord::Base
     
     # return location if applicable
     if self.location
-      @located_at = self.g.name
+      @located_at = self.location.name
       return @located_at
     end
     
@@ -87,8 +87,12 @@ class Job < ActiveRecord::Base
 
   end
   
+  def urlized_company_name
+    self.company.downcase.gsub(/[^a-z0-9]+/i, '-').gsub(/(^[-]+|[-]+$)/, '')
+  end
+    
   def self.companies_count
-    all :select => 'company as name, COUNT(*) as count', 
+    all :select => 'company, COUNT(*) as count', 
       :conditions => 'is_active = true', 
       :order => 'company', 
       :group => 'company'
@@ -98,13 +102,13 @@ class Job < ActiveRecord::Base
     companies = all :select => 'DISTINCT company'
     
     companies.each do |comp|
-      return comp.company if ERB::Util.url_encode(comp.company) == company
+      return comp.company if comp.urlized_company_name == company
     end
     
     nil
   end
   
-  protected
+  protected  
   def format_fields
     self.description_html = format_html(self.description)
   end
@@ -119,5 +123,4 @@ class Job < ActiveRecord::Base
       RedCloth.new(content).to_html(:textile)
     end
   end
-  
 end

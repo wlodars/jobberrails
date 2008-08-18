@@ -74,6 +74,6 @@ module ApplicationHelper
 
   private
   def current_section(link)
-    @controller.controller_path == link.sub(/\//, "")
+    request.request_uri == link
   end
 end
