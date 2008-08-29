@@ -1,0 +1,9 @@
+#contact-form-contents
+  - remote_form_for :contact, :url => { :action => 'send_message' }, :html => { :id => 'apply-online' } do |f|
+    = label_tag :name, 'Your name:', :style => 'display:block'
+    = f.text_field :name, :size => 30, :style => 'margin-bottom:15px'
+    = label_tag :email, 'Your e-mail:', :style => 'display:block'
+    = f.text_field :email, :size => 30, :style => 'margin-bottom:15px'
+    = label_tag :message, 'Message:', :style => 'display:block'
+    = f.text_area :message, :rows => 8, :cols => 50
+    = submit_tag 'Send message', :id => 'submit', :style => 'display:block;margin-top:15px'

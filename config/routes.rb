@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :categories
   map.resource :search, :controller => "Search"
   
-  map.resources :pages
+  map.resources :pages, :member => { :send_message => :post }
 
   map.admin 'admin', :controller => 'admin/jobs', :action => 'index'
   map.namespace :admin do |admin|

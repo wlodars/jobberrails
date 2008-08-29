@@ -21,26 +21,38 @@ class NotifierTest < Test::Unit::TestCase
     assert_equal "jobberrails@gmail.com", response.to[0]
   end
 
- def test_somebody_applied
+  def test_somebody_applied
    
-   recipient = "#{AppConfig.from_email}"
-   company = 'jobberRails'
-   message = "New Job Applicant"
-   filename = "filename"
-   id = "3"
-   sent_at = Time.now
-   response = Notifier.deliver_somebody_applied(recipient,name,message,filename,id,sent_at)
+    recipient = "#{AppConfig.from_email}"
+    company = 'jobberRails'
+    message = "New Job Applicant"
+    filename = "filename"
+    id = "3"
+    sent_at = Time.now
+    response = Notifier.deliver_somebody_applied(recipient,name,message,filename,id,sent_at)
    
-   assert_equal "#{AppConfig.site_name} - New Job Applicant", response.subject
-   assert_equal "jobberrails@gmail.com", response.to[0]
-   assert response.body =~ /New Job Applicant/
+    assert_equal "#{AppConfig.site_name} - New Job Applicant", response.subject
+    assert_equal "jobberrails@gmail.com", response.to[0]
+    assert response.body =~ /New Job Applicant/
 
- end
+  end
+  
+  def test_email_from_page
+    from = "john@smith.ue"
+    name = "John Smith"
+    page_title = "Contact us"
+    body = "Hi, there!"
+    
+    response = Notifier.deliver_email_from_page(from, name, body, page_title)
+
+    assert_equal "Email from page: '#{page_title}'", response.subject
+    assert_equal body, response.body
+  end
    
-   private
-       def read_fixture(action)
-         IO.readlines("#{action}")
-       end
+  private
+  def read_fixture(action)
+    IO.readlines("#{action}")
+  end
    
    
 end

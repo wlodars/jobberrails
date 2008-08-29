@@ -16,4 +16,10 @@ class PagesControllerTest < ActionController::TestCase
     get :show, :id => pages(:about).url
     assert_no_tag :tag => 'div', :attributes => { :id => 'contact-form'}
   end
+  
+  def test_should_send_message
+    xhr :post, :send_message, { :id => pages(:contact).url, :name => 'John Smith', 
+      :email => 'temp@temp.com', :message => 'Soem text'}
+    assert_response :success
+  end
 end

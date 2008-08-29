@@ -1,0 +1,4 @@
+if @contact.nil?
+  page.alert "Thank you for message."
+end
+page.replace_html 'contact-form',:partial => 'pages/contact_form' 
