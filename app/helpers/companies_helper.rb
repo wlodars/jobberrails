@@ -9,7 +9,7 @@ module CompaniesHelper
     divisor = ((max - min) / classes.size) + 1
 
     companies.each { |t|
-      yield t.company, t.count, t.urlized_company_name, classes[(t.count.to_i - min) / divisor]
+      yield t.company, t.count, t.company.to_slug, classes[(t.count.to_i - min) / divisor]
     }
 
   end

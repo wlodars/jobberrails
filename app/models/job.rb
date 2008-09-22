@@ -87,10 +87,6 @@ class Job < ActiveRecord::Base
 
   end
   
-  def urlized_company_name
-    self.company.downcase.gsub(/[^a-z0-9]+/i, '-').gsub(/(^[-]+|[-]+$)/, '')
-  end
-    
   def self.companies_count
     all :select => 'company, COUNT(*) as count', 
       :conditions => 'is_active = true', 
@@ -102,7 +98,7 @@ class Job < ActiveRecord::Base
     companies = all :select => 'DISTINCT company'
     
     companies.each do |comp|
-      return comp.company if comp.urlized_company_name == company
+      return comp.company if comp.company.to_slug == company
     end
     
     nil

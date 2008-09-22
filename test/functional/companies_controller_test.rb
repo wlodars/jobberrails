@@ -18,7 +18,7 @@ class CompaniesControllerTest < ActionController::TestCase
   end
   
   def test_should_show_jobs_at
-    get :jobs_at, :company => jobs(:one).urlized_company_name
+    get :jobs_at, :company => jobs(:one).company.to_slug
     assert_not_nil assigns(:jobs)
   end
   
